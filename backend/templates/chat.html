@@ -1,11 +1,61 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <title>ChatApp</title>
+  <link rel="stylesheet" href="{% static 'css/chat.css' %}">
 </head>
 <body>
-    <h1>chat Page</h1>
+
+<div class="app-container">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2>💬 ChatApp</h2>
+    </div>
+
+    <div class="chat-list">
+      {% for room in rooms %}
+      <a href="#" class="chat-item">
+        <div class="avatar">
+          {{ room.name|slice:":1"|upper }}
+        </div>
+        <div class="chat-info">
+          <div class="chat-name">{{ room.name }}</div>
+          <div class="last-message">
+            {% if room.is_group %}Group chat{% else %}Private chat{% endif %}
+          </div>
+        </div>
+      </a>
+      {% empty %}
+        <p class="empty">No chats yet</p>
+      {% endfor %}
+    </div>
+  </aside>
+
+  <!-- Chat Area -->
+  <main class="chat-area">
+    <div class="chat-header">
+      <h3>Select a chat</h3>
+    </div>
+
+    <div class="messages">
+      <div class="welcome">
+        👋 Welcome to ChatApp  
+        <br>
+        Select a chat to start messaging
+      </div>
+    </div>
+
+    <div class="message-input">
+      <input type="text" placeholder="Type a message..." disabled>
+      <button disabled>➤</button>
+    </div>
+  </main>
+
+</div>
+
 </body>
 </html>
